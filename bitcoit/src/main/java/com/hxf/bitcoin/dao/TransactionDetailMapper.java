@@ -17,7 +17,7 @@ public interface TransactionDetailMapper {
     int updateByPrimaryKeySelective(TransactionDetail record);
 
     int updateByPrimaryKey(TransactionDetail record);
-    List<TransactionDetail> getrecord(@Param("txid") Integer txid);
+    List<TransactionDetail> getrecord(@Param("transactionId") Integer transactionId);
 
     List<TransactionDetail> getaddress(@Param("address")String address);
 }

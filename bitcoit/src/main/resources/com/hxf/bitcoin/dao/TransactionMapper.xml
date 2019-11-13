@@ -18,6 +18,26 @@
     <result column="fee_per_weight_unit" jdbcType="DOUBLE" property="feePerWeightUnit" />
     <result column="block_id" jdbcType="INTEGER" property="blockId" />
   </resultMap>
+
+  <resultMap id="BaseResultMap2" type="com.hxf.bitcoin.dto.TranListDTO">
+    <id column="transaction_id" jdbcType="INTEGER" property="transactionId" />
+    <result column="txid" jdbcType="CHAR" property="txid" />
+    <result column="txhash" jdbcType="CHAR" property="txhash" />
+    <result column="time" jdbcType="BIGINT" property="time" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+    <result column="fees" jdbcType="DOUBLE" property="fees" />
+    <result column="confirmations" jdbcType="INTEGER" property="confirmations" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="sizeOnDisk" jdbcType="INTEGER" property="sizeondisk" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="total_input" jdbcType="DOUBLE" property="totalInput" />
+    <result column="total_output" jdbcType="DOUBLE" property="totalOutput" />
+    <result column="fee_per_byte" jdbcType="DOUBLE" property="feePerByte" />
+    <result column="fee_per_weight_unit" jdbcType="DOUBLE" property="feePerWeightUnit" />
+    <result column="block_id" jdbcType="INTEGER" property="blockId" />
+    <collection property="TransactionDetails" column="transaction_id" ofType="com.hxf.bitcoin.po.TransactionDetail" select="com.hxf.bitcoin.dao.TransactionDetailMapper.getrecord"/>
+
+  </resultMap>
   <sql id="Base_Column_List">
     transaction_id, txid, txhash, time, amount, fees, confirmations, status, sizeOnDisk, 
     weight, total_input, total_output, fee_per_byte, fee_per_weight_unit, block_id
@@ -207,4 +227,31 @@
       block_id = #{blockId,jdbcType=INTEGER}
     where transaction_id = #{transactionId,jdbcType=INTEGER}
   </update>
+
+
+
+
+  <!--交易-->
+  <select id="getTrans" resultMap="BaseResultMap2">
+    select
+    <include refid="Base_Column_List" />
+    from transaction
+    where block_id = #{blockId}
+  </select>
+
+  <!--交易详情-->
+  <select id="getTransbyhash" resultMap="BaseResultMap2">
+    select
+    <include refid="Base_Column_List" />
+    from transaction
+    where TxHash = #{txhash}
+  </select>
+
+  <!--&lt;!&ndash;最近的交易&ndash;&gt;-->
+  <!--<select id="Transactions" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from Trans-->
+
+  <!--</select>-->
 </mapper>

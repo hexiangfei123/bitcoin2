@@ -90,4 +90,20 @@
       transaction_id = #{transactionId,jdbcType=INTEGER}
     where tx_detail_id = #{txDetailId,jdbcType=BIGINT}
   </update>
+
+
+  <select id="getrecord"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from transaction_detail
+    where transaction_id = #{transactionId}
+  </select>
+
+
+  <select id="getaddress"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from transaction_detail
+    where Address = #{address}
+  </select>
 </mapper>

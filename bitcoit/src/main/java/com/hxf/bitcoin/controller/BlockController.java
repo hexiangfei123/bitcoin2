@@ -1,7 +1,7 @@
 package com.hxf.bitcoin.controller;
 
 
-import com.hxf.bitcoin.dao.BlockMapper;
+import com.alibaba.fastjson.JSONObject;
 import com.hxf.bitcoin.po.Block;
 import com.hxf.bitcoin.service.BlockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("Blocks")
+@RequestMapping("/Blocks")
 @CrossOrigin
 public class BlockController {
     @Autowired
@@ -33,11 +33,19 @@ public class BlockController {
 //    }
 //区块详情
     @GetMapping("getByblockHash")
-    public Block getByblockHash(@RequestParam String hash){
-        Block block= blockService.getByblockHash(hash);
+    public Block getByblockHash(@RequestParam String blockhash){
+        Block block= blockService.getByblockHash(blockhash);
         return block;
     }
 
+    @GetMapping("/getInfoByHeight")
+    public JSONObject getInfoByHeight(@RequestParam Integer height){
+        return null;
+    }
 
 
+    @GetMapping("/getWithPage")
+    public List<JSONObject> getWithPage(@RequestParam(required = false, defaultValue = "1") Integer page){
+        return null;
+    }
 }

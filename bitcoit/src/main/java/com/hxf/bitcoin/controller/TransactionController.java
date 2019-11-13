@@ -16,8 +16,8 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @GetMapping("getTrans")
-    public List<Transaction> getblocks(@RequestParam String blkId){
-        List<Transaction> Transactions= transactionService.getTrans(blkId);
+    public List<Transaction> getblocks(@RequestParam String blockId){
+        List<Transaction> Transactions= transactionService.getTrans(blockId);
         return Transactions;
     }
     //交易详情
@@ -27,9 +27,9 @@ public class TransactionController {
         System.out.println("kkk");
         return tran;
     }
-//    最近的交易
-    @GetMapping("/Transactions")
-    public List<Transaction> Transactions(){
+//    最近未确认的交易
+    @GetMapping("/getRecentUnconfirmed")
+    public List<Transaction> getRecentUnconfirmed(@RequestParam(required = false, defaultValue = "20") Integer size){
         List<Transaction> trans= transactionService.Transactions();
         System.out.println("kkk");
         return trans;

@@ -5,10 +5,12 @@ import com.hxf.bitcoin.po.Block;
 import com.hxf.bitcoin.service.BlockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class BlockServiceImpl implements BlockService {
 
     @Autowired
@@ -21,7 +23,7 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
-    public Block getByblockHash(String hash) {
-        return blockMapper.getByblockHash(hash);
+    public Block getByblockHash(String blockhash) {
+        return blockMapper.getByblockHash(blockhash);
     }
 }

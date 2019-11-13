@@ -19,5 +19,5 @@ public interface BlockMapper {
     int updateByPrimaryKey(Block record);
 
     List<Block> getblocks();
-    Block getByblockHash(@Param("hash") String hash);
+    Block getByblockHash(@Param("blockhash") String blockhash);
 }

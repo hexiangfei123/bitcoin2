@@ -18,7 +18,7 @@ public interface TransactionMapper {
 
     int updateByPrimaryKey(Transaction record);
 
-    List<Transaction> getTrans(@Param("blkId") String blkId);
+    List<Transaction> getTrans(@Param("blockId") String blkId);
 
     Transaction getTransbyhash(@Param("txhash")String txhash);
 

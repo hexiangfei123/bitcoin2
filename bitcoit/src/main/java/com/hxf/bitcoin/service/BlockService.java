@@ -7,5 +7,5 @@ import java.util.List;
 public interface BlockService {
     List<Block> getblocks();
 
-    Block getByblockHash(String hash);
+    Block getByblockHash(String blockhash);
 }
