@@ -8,4 +8,6 @@ public interface BlockService {
     List<Block> getblocks();
 
     Block getByblockHash(String blockhash);
+
+    void syncBlocks(String blockhash);
 }
