@@ -37,7 +37,10 @@ private BlockService blockService;
         String blockhash = b.getBlockhash();
         JSONObject blockNoTxDetails = bitcoinRest.getBlockNoTxDetails(blockhash);
         String nextblockhash = blockNoTxDetails.getString("nextblockhash");
-        blockService.syncBlocks(nextblockhash);
+        if(nextblockhash!=null){
+            blockService.syncBlocks(nextblockhash);
+
+        }
 
 
         simpMessagingTemplate.convertAndSend("/a/c", stu);

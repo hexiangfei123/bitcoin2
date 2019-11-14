@@ -56,14 +56,14 @@
     delete from block
     where block_id = #{blockId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.hxf.bitcoin.po.Block">
-    insert into block (block_id, blockhash, height, 
+  <insert id="insert" parameterType="com.hxf.bitcoin.po.Block" keyProperty="blockId" useGeneratedKeys="true">
+    insert into block ( blockhash, height,
       time, miner, sizeOnDisk, 
       confirmations, txSize, difficulty, 
       merkle_root, bits, version, 
       weight, block_reward, fee_reward, 
       transaction_volume, nonce)
-    values (#{blockId,jdbcType=INTEGER}, #{blockhash,jdbcType=CHAR}, #{height,jdbcType=INTEGER}, 
+    values ( #{blockhash,jdbcType=CHAR}, #{height,jdbcType=INTEGER},
       #{time,jdbcType=BIGINT}, #{miner,jdbcType=VARCHAR}, #{sizeondisk,jdbcType=INTEGER}, 
       #{confirmations,jdbcType=INTEGER}, #{txsize,jdbcType=INTEGER}, #{difficulty,jdbcType=DOUBLE}, 
       #{merkleRoot,jdbcType=CHAR}, #{bits,jdbcType=CHAR}, #{version,jdbcType=VARCHAR}, 

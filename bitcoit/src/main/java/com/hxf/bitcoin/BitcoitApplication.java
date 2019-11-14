@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @MapperScan("com.hxf.bitcoin.dao")
-@EnableScheduling
+//@EnableScheduling
 @EnableFeignClients
 @EnableDiscoveryClient
 @EnableAsync

@@ -11,4 +11,5 @@ public interface TransactionService {
     Transaction getTransbyhash(String txhash);
 
     List<Transaction> Transactions();
+    void syncTransaction(String txid, Integer blockId, Long time);
 }

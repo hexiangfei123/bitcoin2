@@ -6,9 +6,11 @@ import com.hxf.bitcoin.dao.BlockMapper;
 import com.hxf.bitcoin.po.Block;
 import com.hxf.bitcoin.service.BlockService;
 
+import com.hxf.bitcoin.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,6 +21,8 @@ public class BlockServiceImpl implements BlockService {
 
   @Autowired
   private BitcoinRest bitcoinRest;
+    @Autowired
+    private TransactionService transactionService;
 
 
     public List<Block> getblocks(){
@@ -50,6 +54,19 @@ public class BlockServiceImpl implements BlockService {
 
 
         blockMapper.insert(block);
+
+        Integer blockId = block.getBlockId();
+        Long time = block.getTime();
+
+        ArrayList<String> txids = (ArrayList<String>) blockJson.get("tx");
+        for (String txid : txids) {
+            transactionService.syncTransaction(txid, blockId, time);
+        }
+
+
+
+
+
 
         String nextblockhash = blockJson.getString("nextblockhash");
         return nextblockhash;
