@@ -58,6 +58,9 @@ public class BlockServiceImpl implements BlockService {
         Integer blockId = block.getBlockId();
         Long time = block.getTime();
 
+
+
+        //添加交易
         ArrayList<String> txids = (ArrayList<String>) blockJson.get("tx");
         for (String txid : txids) {
             transactionService.syncTransaction(txid, blockId, time);
