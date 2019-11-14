@@ -1,6 +1,7 @@
 package com.hxf.bitcoin.client;
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 

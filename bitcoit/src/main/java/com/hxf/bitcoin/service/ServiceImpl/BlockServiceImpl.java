@@ -5,21 +5,20 @@ import com.hxf.bitcoin.client.BitcoinRest;
 import com.hxf.bitcoin.dao.BlockMapper;
 import com.hxf.bitcoin.po.Block;
 import com.hxf.bitcoin.service.BlockService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
 public class BlockServiceImpl implements BlockService {
 
     @Autowired
     private BlockMapper blockMapper;
 
-    @Autowired
-    private BitcoinRest bitcoinRest;
+  @Autowired
+  private BitcoinRest bitcoinRest;
 
 
     public List<Block> getblocks(){

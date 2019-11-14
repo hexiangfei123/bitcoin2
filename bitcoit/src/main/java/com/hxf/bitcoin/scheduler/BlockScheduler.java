@@ -19,12 +19,20 @@ public class BlockScheduler {
     @Scheduled(fixedRate = 3000)
     public void syncBlockData(){
         count++;
-        logger.info("sync block data", count);
+        logger.info("sync block data"+count);
         Stu stu = new Stu();
         stu.setAge(11);
         stu.setName("张三");
         stu.setSex("男");
 
+
+
+
+
+
         simpMessagingTemplate.convertAndSend("/a/c", stu);
+
+
+
     }
 }
