@@ -12,4 +12,6 @@ public interface BlockService {
     String syncBlock(String blockhash);
     @Async
     void syncBlocks(String blockhash);
+
+    Block getnewHash();
 }

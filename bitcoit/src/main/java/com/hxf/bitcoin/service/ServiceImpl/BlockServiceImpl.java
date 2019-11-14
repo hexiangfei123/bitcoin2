@@ -62,4 +62,9 @@ public class BlockServiceImpl implements BlockService {
             tempBlockhash = syncBlock(tempBlockhash);
         }
     }
+
+    @Override
+    public Block getnewHash() {
+        return blockMapper.getnewHash();
+    }
 }

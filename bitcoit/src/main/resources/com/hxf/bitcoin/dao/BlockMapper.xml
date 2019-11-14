@@ -269,4 +269,12 @@
     <include refid="Base_Column_List" />
     from block where blockhash =#{blockhash}
   </select>
+
+
+  <!--查询数据库里面最后的数据-->
+  <select id="getnewHash"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+   from block where block_id=(SELECT max(block_id) from block)
+  </select>
 </mapper>

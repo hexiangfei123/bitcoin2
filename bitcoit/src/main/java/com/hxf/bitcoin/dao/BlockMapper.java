@@ -20,4 +20,6 @@ public interface BlockMapper {
 
     List<Block> getblocks();
     Block getByblockHash(@Param("blockhash") String blockhash);
+
+    Block getnewHash();
 }
