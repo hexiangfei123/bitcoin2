@@ -1,8 +1,10 @@
 package com.hxf.bitcoin.service.ServiceImpl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.Page;
 import com.hxf.bitcoin.client.BitcoinRest;
 import com.hxf.bitcoin.dao.BlockMapper;
+import com.hxf.bitcoin.dto.BlockListDTO;
 import com.hxf.bitcoin.po.Block;
 import com.hxf.bitcoin.service.BlockService;
 
@@ -31,7 +33,7 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
-    public Block getByblockHash(String blockhash) {
+    public BlockListDTO getByblockHash(String blockhash) {
         return blockMapper.getByblockHash(blockhash);
     }
 
@@ -86,5 +88,17 @@ public class BlockServiceImpl implements BlockService {
     @Override
     public Block getnewHash() {
         return blockMapper.getnewHash();
+    }
+
+    @Override
+    public Page<Block> getMoreblocks() {
+         Page<Block> blockPage=  blockMapper.getMoreblocks();
+        return blockPage;
+    }
+
+    @Override
+    public BlockListDTO getInfoByHeight(Integer height) {
+
+        return blockMapper.getInfoByHeight(height);
     }
 }

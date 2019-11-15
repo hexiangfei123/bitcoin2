@@ -1,5 +1,7 @@
 package com.hxf.bitcoin.dao;
 
+import com.github.pagehelper.Page;
+import com.hxf.bitcoin.dto.BlockListDTO;
 import com.hxf.bitcoin.po.Block;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,7 +21,11 @@ public interface BlockMapper {
     int updateByPrimaryKey(Block record);
 
     List<Block> getblocks();
-    Block getByblockHash(@Param("blockhash") String blockhash);
+    BlockListDTO getByblockHash(@Param("blockhash") String blockhash);
 
     Block getnewHash();
+
+    Page<Block> getMoreblocks();
+
+    BlockListDTO getInfoByHeight(Integer height);
 }

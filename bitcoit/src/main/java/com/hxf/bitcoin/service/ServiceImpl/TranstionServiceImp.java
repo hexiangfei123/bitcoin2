@@ -9,7 +9,11 @@ import com.hxf.bitcoin.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+
 @Service
 public class TranstionServiceImp implements TransactionService {
 
@@ -60,7 +64,32 @@ public class TranstionServiceImp implements TransactionService {
             transactionDetailService.syncTxDetailVout(vout, transactionId);
         }
 
+        //添加vin
+        List<JSONObject> vins= transactionJson.getJSONArray("vin").toJavaList(JSONObject.class);
+        for(JSONObject vin:vins){
+            transactionDetailService.syncTXDetailVin(vin,transactionId);
+        }
 
 
+    }
+
+    @Override
+    public List<Transaction> getRecentUnconfirmed() {
+        JSONObject mempoolContents = bitcoinRest.getMempoolContents();
+
+        List<Transaction> list = new ArrayList<>();
+
+        Set<String> strings = mempoolContents.keySet();
+        for (String string : strings) {
+            Transaction transaction = new Transaction();
+            JSONObject o = mempoolContents.getJSONObject(string);
+            transaction.setTxhash(string);
+            transaction.setTime(o.getLong("time"));
+            transaction.setFees(o.getDouble("fee"));
+            list.add(transaction);
+        }
+        Collections.sort(list,Transaction::compareTo);
+
+        return list;
     }
 }

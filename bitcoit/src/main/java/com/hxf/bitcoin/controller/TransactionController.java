@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("Trans")
+@RequestMapping("/transaction")
 @CrossOrigin
 public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-    @GetMapping("getTrans")
+    @GetMapping("/getTrans")
     public List<Transaction> getblocks(@RequestParam String blockId){
         List<Transaction> Transactions= transactionService.getTrans(blockId);
         return Transactions;
     }
     //交易详情
-    @GetMapping("getTransbyhash")
+    @GetMapping("/getByTxhash")
     public Transaction getTransbyhash(@RequestParam String txhash){
         Transaction tran= transactionService.getTransbyhash(txhash);
         System.out.println("kkk");
@@ -30,7 +30,7 @@ public class TransactionController {
 //    最近未确认的交易
     @GetMapping("/getRecentUnconfirmed")
     public List<Transaction> getRecentUnconfirmed(@RequestParam(required = false, defaultValue = "20") Integer size){
-        List<Transaction> trans= transactionService.Transactions();
+        List<Transaction> trans= transactionService.getRecentUnconfirmed();
         System.out.println("kkk");
         return trans;
     }

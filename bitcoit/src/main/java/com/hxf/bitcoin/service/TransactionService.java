@@ -12,4 +12,6 @@ public interface TransactionService {
 
     List<Transaction> Transactions();
     void syncTransaction(String txid, Integer blockId, Long time);
+
+    List<Transaction> getRecentUnconfirmed();
 }

@@ -255,20 +255,39 @@
   </update>
 
 
-  <!--区块列表-->
+  <!--最新区块列表-->
   <select id="getblocks"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from block
+    order by time desc limit 10
+
+  </select>
+
+  <!--更多区块列表-->
+  <select id="getMoreblocks"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from block
+    order by time desc
+
   </select>
 
 
-  <!--区块详情列表-->
+  <!--区块hash区块详情列表-->
   <select id="getByblockHash"  resultMap="BaseResultMap2">
     select
     <include refid="Base_Column_List" />
     from block where blockhash =#{blockhash}
   </select>
+
+  <!--区块高度区块详情列表-->
+  <select id="getInfoByHeight"  resultMap="BaseResultMap2">
+    select
+    <include refid="Base_Column_List" />
+    from block where height =#{height}
+  </select>
+
 
 
   <!--查询数据库里面最后的数据-->

@@ -244,7 +244,7 @@
     select
     <include refid="Base_Column_List" />
     from transaction
-    where TxHash = #{txhash}
+    where txHash = #{txhash}
   </select>
 
   <!--&lt;!&ndash;最近的交易&ndash;&gt;-->

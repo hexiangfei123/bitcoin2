@@ -1,6 +1,6 @@
 package com.hxf.bitcoin.po;
 
-public class Transaction {
+public class Transaction implements Comparable<Transaction>{
     private Integer transactionId;
 
     private String txid;
@@ -149,5 +149,10 @@ public class Transaction {
 
     public void setBlockId(Integer blockId) {
         this.blockId = blockId;
+    }
+
+    @Override
+    public int compareTo(Transaction o) {
+        return -this.getTime().compareTo(o.getTime());
     }
 }
