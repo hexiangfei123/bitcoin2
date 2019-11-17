@@ -104,6 +104,23 @@
     select
     <include refid="Base_Column_List" />
     from transaction_detail
-    where Address = #{address}
+    where address = #{address}
   </select>
+
+
+  <select id="selectDetail" resultType="com.hxf.bitcoin.dto.AddressDTO">
+    select count(*) txSize, SUM(amount) balance ,(
+      select SUM(amount)   from transaction_detail td1  where
+        td1.address= #{address} and td1.type=1
+
+    ) totalReceived,(
+             select SUM(amount)  from transaction_detail td1  where
+               td1.address= #{address} and td1.type=0
+
+           ) totalSent, td.address from transaction_detail td where
+      td.address= #{address}
+
+
+  </select>
+
 </mapper>

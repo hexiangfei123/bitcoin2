@@ -1,5 +1,6 @@
 package com.hxf.bitcoin.dao;
 
+import com.hxf.bitcoin.dto.AddressDTO;
 import com.hxf.bitcoin.po.TransactionDetail;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +21,6 @@ public interface TransactionDetailMapper {
     List<TransactionDetail> getrecord(@Param("transactionId") Integer transactionId);
 
     List<TransactionDetail> getaddress(@Param("address")String address);
+
+    AddressDTO selectDetail(@Param("address")String address);
 }

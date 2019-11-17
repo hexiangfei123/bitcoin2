@@ -4,12 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.hxf.bitcoin.client.BitcoinRest;
 import com.hxf.bitcoin.dao.BlockMapper;
-import com.hxf.bitcoin.dto.BlockListDTO;
+import com.hxf.bitcoin.dto.BlockDTO;
 import com.hxf.bitcoin.po.Block;
 import com.hxf.bitcoin.service.BlockService;
 
 import com.hxf.bitcoin.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
-    public BlockListDTO getByblockHash(String blockhash) {
+    public BlockDTO getByblockHash(String blockhash) {
         return blockMapper.getByblockHash(blockhash);
     }
 
@@ -78,6 +79,7 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
+    @Async
     public void syncBlocks(String fromBlockhash) {
         String tempBlockhash = fromBlockhash;
         while (tempBlockhash != null){
@@ -97,7 +99,7 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
-    public BlockListDTO getInfoByHeight(Integer height) {
+    public BlockDTO getInfoByHeight(Integer height) {
 
         return blockMapper.getInfoByHeight(height);
     }

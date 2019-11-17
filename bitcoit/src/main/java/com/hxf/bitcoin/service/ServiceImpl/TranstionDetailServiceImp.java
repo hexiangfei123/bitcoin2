@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hxf.bitcoin.client.BitcoinJsonRpc;
 import com.hxf.bitcoin.dao.TransactionDetailMapper;
+import com.hxf.bitcoin.dto.AddressDTO;
 import com.hxf.bitcoin.enume.TxDetailType;
 import com.hxf.bitcoin.po.Transaction;
 import com.hxf.bitcoin.po.TransactionDetail;
@@ -85,5 +86,11 @@ public class TranstionDetailServiceImp implements TransactionDetailService {
 
 
 
+    }
+
+    @Override
+    public AddressDTO selectDetail(String address) {
+       AddressDTO addressDTO= transactionDetailMapper.selectDetail(address);
+        return addressDTO;
     }
 }

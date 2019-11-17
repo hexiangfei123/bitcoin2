@@ -1,8 +1,12 @@
 package com.hxf.bitcoin.service.ServiceImpl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.hxf.bitcoin.client.BitcoinRest;
+import com.hxf.bitcoin.constans.PageConfig;
 import com.hxf.bitcoin.dao.TransactionMapper;
+import com.hxf.bitcoin.dto.TransactionDTO;
 import com.hxf.bitcoin.po.Transaction;
 import com.hxf.bitcoin.service.TransactionDetailService;
 import com.hxf.bitcoin.service.TransactionService;
@@ -27,8 +31,10 @@ public class TranstionServiceImp implements TransactionService {
     private TransactionDetailService transactionDetailService;
 
     @Override
-    public List<Transaction> getTrans(String blkId) {
-        return transactionMapper.getTrans(blkId);
+    public Page<TransactionDTO> getTrans(String blkId,Integer size) {
+        PageHelper.startPage(size,10);
+        Page<TransactionDTO>   transactionDTOS= transactionMapper.getTrans(blkId);
+        return transactionDTOS;
     }
 
     @Override
@@ -91,5 +97,24 @@ public class TranstionServiceImp implements TransactionService {
         Collections.sort(list,Transaction::compareTo);
 
         return list;
+    }
+
+    @Override
+    public Page<TransactionDTO> getByBlockIdWithPage(Integer blockId, Integer page) {
+        PageHelper.startPage(page, PageConfig.PAGE_SIZE);
+        Page<TransactionDTO> transactions =transactionMapper.getByBlockIdWithPage(blockId);
+        return transactions;
+    }
+
+    @Override
+    public TransactionDTO getByTxid(String txid) {
+        return transactionMapper.getByTxid(txid);
+    }
+
+    @Override
+    public Page<TransactionDTO> getaddress(String address,Integer page) {
+        PageHelper.startPage(page,1);
+        Page<TransactionDTO> getaddress = transactionMapper.getaddress(address);
+        return getaddress;
     }
 }

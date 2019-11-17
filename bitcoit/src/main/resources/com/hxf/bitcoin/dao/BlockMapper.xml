@@ -20,7 +20,7 @@
     <result column="transaction_volume" jdbcType="DOUBLE" property="transactionVolume" />
     <result column="nonce" jdbcType="INTEGER" property="nonce" />
   </resultMap>
-  <resultMap id="BaseResultMap2" type="com.hxf.bitcoin.dto.BlockListDTO">
+  <resultMap id="BaseResultMap2" type="com.hxf.bitcoin.dto.BlockDTO">
     <id column="block_id" jdbcType="INTEGER" property="blockId" />
     <result column="blockhash" jdbcType="CHAR" property="blockhash" />
     <result column="height" jdbcType="INTEGER" property="height" />
@@ -38,7 +38,7 @@
     <result column="fee_reward" jdbcType="DOUBLE" property="feeReward" />
     <result column="transaction_volume" jdbcType="DOUBLE" property="transactionVolume" />
     <result column="nonce" jdbcType="INTEGER" property="nonce" />
-    <collection property="trans" column="block_id" ofType="com.hxf.bitcoin.po.Transaction" select="com.hxf.bitcoin.dao.TransactionMapper.getTrans"/>
+
 
   </resultMap>
   <sql id="Base_Column_List">

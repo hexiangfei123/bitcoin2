@@ -19,7 +19,7 @@
     <result column="block_id" jdbcType="INTEGER" property="blockId" />
   </resultMap>
 
-  <resultMap id="BaseResultMap2" type="com.hxf.bitcoin.dto.TranListDTO">
+  <resultMap id="BaseResultMap2" type="com.hxf.bitcoin.dto.TransactionDTO">
     <id column="transaction_id" jdbcType="INTEGER" property="transactionId" />
     <result column="txid" jdbcType="CHAR" property="txid" />
     <result column="txhash" jdbcType="CHAR" property="txhash" />
@@ -231,7 +231,7 @@
 
 
 
-  <!--交易-->
+  <!--区块交易-->
   <select id="getTrans" resultMap="BaseResultMap2">
     select
     <include refid="Base_Column_List" />
@@ -239,7 +239,7 @@
     where block_id = #{blockId}
   </select>
 
-  <!--交易详情-->
+  <!--交易hash详情-->
   <select id="getTransbyhash" resultMap="BaseResultMap2">
     select
     <include refid="Base_Column_List" />
@@ -254,4 +254,34 @@
     <!--from Trans-->
 
   <!--</select>-->
+
+
+
+
+
+  <select id="getByBlockIdWithPage" resultMap="BaseResultMap2">
+    select
+    <include refid="Base_Column_List" />
+    from transaction
+    where block_id = #{blockId}
+  </select>
+
+  <!--交易txid详情-->
+  <select id="getByTxid" resultMap="BaseResultMap2">
+    select
+    <include refid="Base_Column_List" />
+    from transaction
+    where txid = #{txid}
+  </select>
+
+
+
+  <!--交易txid详情-->
+  <select id="getaddress" resultMap="BaseResultMap2">
+    select
+      t.*
+    from transaction t  left join  transaction_detail td
+     on td.transaction_id=t.transaction_id where
+      td.address=#{address}
+  </select>
 </mapper>

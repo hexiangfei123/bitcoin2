@@ -7,7 +7,7 @@ import com.hxf.bitcoin.po.TransactionDetail;
 
 import java.util.Set;
 
-public class TranListDTO extends Transaction {
+public class TransactionDTO extends Transaction {
     private Set<TransactionDetail> TransactionDetails;
 
     public Set<TransactionDetail> getRecords() {

@@ -1,5 +1,7 @@
 package com.hxf.bitcoin.dao;
 
+import com.github.pagehelper.Page;
+import com.hxf.bitcoin.dto.TransactionDTO;
 import com.hxf.bitcoin.po.Transaction;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,9 +20,15 @@ public interface TransactionMapper {
 
     int updateByPrimaryKey(Transaction record);
 
-    List<Transaction> getTrans(@Param("blockId") String blkId);
+    Page<TransactionDTO> getTrans(@Param("blockId") String blockId);
 
     Transaction getTransbyhash(@Param("txhash")String txhash);
 
     List<Transaction> Transactions();
+
+    Page<TransactionDTO> getByBlockIdWithPage(Integer blockId);
+
+    TransactionDTO getByTxid(@Param("txid")String txid);
+
+    Page<TransactionDTO> getaddress(String address);
 }

@@ -1,15 +1,15 @@
 package com.hxf.bitcoin.controller;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.hxf.bitcoin.dto.BlockListDTO;
+import com.hxf.bitcoin.dto.BlockDTO;
+import com.hxf.bitcoin.dto.TransactionDTO;
 import com.hxf.bitcoin.po.Block;
 import com.hxf.bitcoin.service.BlockService;
+import com.hxf.bitcoin.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +20,8 @@ import java.util.List;
 public class BlockController {
     @Autowired
     private BlockService blockService;
+    @Autowired
+    private TransactionService transactionService;
     //最新区块列表
     @GetMapping("/getnewblocks")
   //  @SendTo("/a/c")
@@ -42,15 +44,19 @@ public class BlockController {
         return blockPageInfo;
     }
     //区块详情
-    @GetMapping("getByblockHash")
-    public BlockListDTO getByblockHash(@RequestParam String blockhash){
-        BlockListDTO block= blockService.getByblockHash(blockhash);
+    @GetMapping("/getByblockHash")
+    public BlockDTO getByblockHash(@RequestParam String blockhash,@RequestParam Integer page){
+        BlockDTO block= blockService.getByblockHash(blockhash);
+        Integer blockId = block.getBlockId();
+        Page<TransactionDTO> trans = transactionService.getTrans(blockId.toString(), page);
+        PageInfo<TransactionDTO> transactionDTOPageInfo = trans.toPageInfo();
+        block.setTransactionDTOPageInfo(transactionDTOPageInfo);
         return block;
     }
 
     @GetMapping("/getInfoByHeight")
-    public BlockListDTO getInfoByHeight(@RequestParam Integer height){
-        BlockListDTO block= blockService.getInfoByHeight(height);
+    public BlockDTO getInfoByHeight(@RequestParam Integer height){
+        BlockDTO block= blockService.getInfoByHeight(height);
 
         return block;
     }
