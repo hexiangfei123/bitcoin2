@@ -32,8 +32,8 @@ public class TransactionController {
     }
     //交易详情
     @GetMapping("/getByTxid")
-    public TransactionDTO getByTxid(@RequestParam String txid){
-        TransactionDTO tran= transactionService.getByTxid(txid);
+    public TransactionDTO getByTxid(@RequestParam String txhash){
+        TransactionDTO tran= transactionService.getByTxid(txhash);
         System.out.println("kkk");
         return tran;
     }

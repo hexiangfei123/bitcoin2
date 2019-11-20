@@ -36,7 +36,7 @@ public class BlockController {
 
     //更多区块列表
     @GetMapping("/getMoreblocks")
-    public PageInfo<Block> getblocks(@RequestParam(required = false, defaultValue = "1") Integer page){
+    public PageInfo<Block> getblocks(@RequestParam(required = false, defaultValue = "1") Integer page,Integer pagesize){
         PageHelper.startPage(page, 20);
         Page<Block> getblocks = blockService.getMoreblocks();
         PageInfo<Block> blockPageInfo = getblocks.toPageInfo();

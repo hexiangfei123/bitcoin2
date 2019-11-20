@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/elementui.css">
+    <title>TransactionDetail</title>
+</head>
+
+<body>
+<div id="app">
+
+    <div style="margin-left: 40px; ">Summary</div>
+       
+                <div style="margin-left: 40px;">
+                    <div>
+                        <div style="float: left ;">hash</div>
+                        <div style="float: left ;margin-left: 40px;">
+                                <a
+                                :href="'http://localhost:5000/TransactionDetail?txhash='+ transaction.txhash">{{transaction.txhash}}</a>
+                            
+                        
+                        
+                        </div>
+    
+                        <div style="float: right ;margin-right: 40px;">{{transaction.time}}</div>
+    
+    
+    
+                    </div>
+                    <div style="margin-top: 10px;">
+    
+    
+                        <div style="float: left; width: 650px;">
+                            <el-row v-for="(detail,index) in transaction.records" v-if="detail.type==0" :key="index+100">
+                                <div style="margin-left: 80px; margin-top: 10px;">
+                                    <div style="float: left;"> {{detail.address}}</div>
+                                    <div style="float: right;" v-if="detail.type==0">{{detail.amount}}</div>
+    
+                                </div>
+                            </el-row>
+                        </div>
+                        <div style="float: right;margin-right: 40px; ">
+                            <el-row v-for="(detail,index) in transaction.records " v-if="detail.type==1" :key="index+100">
+                                <div style="margin-top: 10px;">
+                                    <div style="float: left;margin-right: 20px;" v-if="detail.type==1"> {{detail.address}}</div>
+                                    <div style="float: right;" v-if="detail.type==1">{{detail.amount}}</div>
+                                </div>
+                            </el-row>
+                        </div>
+                    </div>
+                    <div style="clear: right;">
+                            fee
+                            <el-divider></el-divider>
+                    </div>
+                </div>
+                
+
+                <div  style="margin-left: 40px;margin-bottom: 20px;">
+                    细节
+                </div>
+         <div style="margin-left: 40px;width: 900px;">
+                <table  cellspacing="0px"  style="border-collapse:collapse;line-height: 50px;" >
+                        <tr style=" border-bottom:1px solid #979191 ">
+                            <td>Hash</td>
+                            <td>{{transaction.txhash}}</td>
+    
+                        </tr>
+    
+                        <tr style="border-bottom:1px solid #979191  ">
+                            <td>Status</td>
+                            <td>{{transaction.status}}</td>
+    
+                        </tr>
+                        <tr style="border-bottom:1px solid #979191  ">
+                            <td> Received Time</td>
+                            <td>{{transaction.time}}</td>
+    
+                        </tr>
+                        <tr style="border-bottom:1px solid #979191  ">
+                            <td>Size</td>
+                            <td>{{transaction.sizeondisk}}</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #979191  ">
+                            <td>Weight</td>
+                            <td>{{transaction.weight}}</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #979191  ">
+                            <td>Included in Block</td>
+                            <td>{{transaction.txsize}}</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #979191  ">
+                            <td>Confirmations</td>
+                            <td>{{transaction.confirmations}}</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #979191  ">
+                            <td>Total Input</td>
+                            <td>{{transaction.totalInput}}</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #979191  ">
+                            <td>Total Output</td>
+                            <td>{{transaction.totalOutput}}</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #979191  ">
+                            <td>Fees</td>
+                            <td>{{transaction.fees}}</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #979191  ">
+                            <td>Fee per byte</td>
+                            <td>{{transaction.feePerByte}}</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #979191  ">
+                            <td>Fee per weight unit</td>
+                            <td>{{transaction.feePerWeightUnit}}</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #979191  ">
+                            <td>Value when transacted</td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+               
+
+        
+         </div>
+
+
+
+</div>
+
+<script src="assets/js/axios.min.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/elementui.js"></script>
+<script src="viewmodels/TransactionDetail.js"></script>
+
+</body>
+
+</html>

@@ -113,7 +113,7 @@ public class TranstionServiceImp implements TransactionService {
 
     @Override
     public Page<TransactionDTO> getaddress(String address,Integer page) {
-        PageHelper.startPage(page,1);
+        PageHelper.startPage(page,10);
         Page<TransactionDTO> getaddress = transactionMapper.getaddress(address);
         return getaddress;
     }

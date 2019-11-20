@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/elementui.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <title>Demo</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <div style="float: left;margin-left: 40px;margin-bottom: 80px;">
+                <table cellspacing="0px" style="border-collapse:collapse;line-height: 50px;">
+                    <tr style=" border-bottom:1px solid #979191 ">
+                        <td>hash</td>
+                        <td>{{block.blockhash}}</td>
+
+                    </tr>
+
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>Confirmations</td>
+                        <td>{{block.confirmations}}</td>
+
+                    </tr>
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>Timestamp</td>
+                        <td>{{block.timestamp}}</td>
+
+                    </tr>
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>height</td>
+                        <td>{{block.height}}</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>Miner</td>
+                        <td>{{block.miner}}</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>Number of Transactions</td>
+                        <td>{{block.txsize}}</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>Difficulty</td>
+                        <td>{{block.difficulty}}</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>Merkle root</td>
+                        <td>{{block.blockhash}}</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>Version</td>
+                        <td>{{block.version}}</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>Bits</td>
+                        <td>{{block.bits}}</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>Weight</td>
+                        <td>{{block.weight}}</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>Size</td>
+                        <td>{{block.blockhash}}</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>Nonce</td>
+                        <td>{{block.nonce}}</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>Transaction Volume</td>
+                        <td>{{block.blockhash}}</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>Block Reward</td>
+                        <td>{{block.blockReward}}</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid #979191  ">
+                        <td>Fee Reward</td>
+                        <td>{{block.feeReward}}</td>
+                    </tr>
+
+                </table>
+
+            </div>
+            <div style="float: left ;">
+
+                dfdf
+            </div>
+
+
+        </div>
+
+        <div style="  clear: left;margin-left: 40px;">Transactions</div>
+
+
+        <el-pagination style="text-align:center" @size-change="handleSizeChange" @current-change="handleCurrentChange"
+            :current-page="page" :page-sizes="[10, 15, 20, 25]" :page-size="pagesize"
+            layout="total, sizes, prev, pager, next, jumper" :total="total">
+        </el-pagination>
+
+        <el-row v-for="(o,index) in block.transactionDTOPageInfo.list" :key="index">
+            <div style="margin-left: 40px; ">
+                <div >
+                    <div style="float: left ;">hash</div>
+                    <div style="float: left ;margin-left: 40px; width: 500px;"  class="blockhash">
+                        <a :href="'http://localhost:5000/TransactionDetail?txhash='+ o.txhash">{{o.txhash}}</a>
+
+
+
+                    </div>
+
+                    <div style="float: right ;margin-right: 40px;">{{o.time}}</div>
+
+
+
+                </div>
+                <div style="margin-top: 10px;">
+
+
+                    <div style="float: left; width: 650px;">
+                        <el-row v-for="(detail,index) in o.records" v-if="detail.type==0" :key="index+100">
+                            <div style="margin-left: 80px; margin-top: 10px;">
+                                <div style="float: left;">
+                                    <a
+                                        :href="'http://localhost:5000/addressInfo?address='+ detail.address">{{detail.address}}</a>
+                                </div>
+                                <div style="float: right;" v-if="detail.type==0">{{detail.amount}}</div>
+
+                            </div>
+                        </el-row>
+                    </div>
+                    <div style="float: right;margin-right: 40px; width: 450px; ">
+                        <el-row v-for="(detail,index) in o.records " v-if="detail.type==1" :key="index+100">
+                            <div style="margin-top: 10px;">
+                                <div style="float: left;margin-right: 20px;" v-if="detail.type==1"> <a
+                                        :href="'http://localhost:5000/addressInfo?address='+ detail.address">{{detail.address}}</a>
+                                </div>
+                                <div style="float: right;" v-if="detail.type==1">{{detail.amount}}</div>
+                            </div>
+                        </el-row>
+                    </div>
+                </div>
+                <div style="clear: right;">
+                    fee
+                </div>
+            </div>
+            <el-divider></el-divider>
+
+
+        </el-row>
+
+
+
+
+    </div>
+
+    <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/elementui.js"></script>
+    <script src="viewmodels/BlockDetail.js"></script>
+
+</body>
+
+</html>

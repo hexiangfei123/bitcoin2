@@ -271,7 +271,7 @@
     select
     <include refid="Base_Column_List" />
     from transaction
-    where txid = #{txid}
+    where txhash = #{txid}
   </select>
 
 
