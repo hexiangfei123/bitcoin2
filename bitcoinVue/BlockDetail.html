@@ -12,6 +12,9 @@
 
 <body>
     <div id="app">
+        <div style="margin-left: 40px;margin-bottom: 20px;"> <a :href="'http://localhost:5000/blocklist'">BTC</a>/BLOCK
+        </div>
+        <el-divider></el-divider>
         <div>
             <div style="float: left;margin-left: 40px;margin-bottom: 80px;">
                 <table cellspacing="0px" style="border-collapse:collapse;line-height: 50px;">
@@ -87,9 +90,17 @@
                 </table>
 
             </div>
-            <div style="float: left ;">
+            <div style="float: left ;margin-left: 100px;">
+                <div>
+                    <img src="http://localhost:8080/image/b.png" width="300" height="400" />
 
-                dfdf
+                </div>
+                <div>
+                    <img src="http://localhost:8080/image/a.png" width="300" height="500" />
+
+                </div>
+
+
             </div>
 
 
@@ -104,10 +115,10 @@
         </el-pagination>
 
         <el-row v-for="(o,index) in block.transactionDTOPageInfo.list" :key="index">
-            <div style="margin-left: 40px; ">
-                <div >
+            <div style="margin-left: 40px;margin-top: 30px; ">
+                <div>
                     <div style="float: left ;">hash</div>
-                    <div style="float: left ;margin-left: 40px; width: 500px;"  class="blockhash">
+                    <div style="float: left ;margin-left: 40px; width: 500px;" class="blockhash">
                         <a :href="'http://localhost:5000/TransactionDetail?txhash='+ o.txhash">{{o.txhash}}</a>
 
 
@@ -119,25 +130,35 @@
 
 
                 </div>
-                <div style="margin-top: 10px;">
+                <div style="margin-top: 10px;clear: right;">
 
 
-                    <div style="float: left; width: 650px;">
+                    <div style="float: left; width: 570px;height: 10px;" width="570px">
+                        
                         <el-row v-for="(detail,index) in o.records" v-if="detail.type==0" :key="index+100">
                             <div style="margin-left: 80px; margin-top: 10px;">
-                                <div style="float: left;">
+                                
+                                <div style="float: left;width: 340px;" class="blockhash">
                                     <a
-                                        :href="'http://localhost:5000/addressInfo?address='+ detail.address">{{detail.address}}</a>
+                                        :href="'http://localhost:5000/addressInfo?address='+ detail.address">&nbsp;{{detail.address}}</a>
                                 </div>
                                 <div style="float: right;" v-if="detail.type==0">{{detail.amount}}</div>
 
                             </div>
                         </el-row>
                     </div>
-                    <div style="float: right;margin-right: 40px; width: 450px; ">
+                    <div  style="float: left;margin-left: 40px;">
+                        <img src="http://localhost:8080/image/c.png" width="40" height="40px" />
+                    </div>
+
+                    <div style="float: right;margin-right: 40px; width: 500px; ">
                         <el-row v-for="(detail,index) in o.records " v-if="detail.type==1" :key="index+100">
+
+
                             <div style="margin-top: 10px;">
-                                <div style="float: left;margin-right: 20px;" v-if="detail.type==1"> <a
+
+                                <div style="float: left;margin-right: 20px;width: 300px;" class="blockhash"
+                                    v-if="detail.type==1"> <a
                                         :href="'http://localhost:5000/addressInfo?address='+ detail.address">{{detail.address}}</a>
                                 </div>
                                 <div style="float: right;" v-if="detail.type==1">{{detail.amount}}</div>
@@ -145,8 +166,12 @@
                         </el-row>
                     </div>
                 </div>
-                <div style="clear: right;">
-                    fee
+
+                <div style="clear: right;clear: left; margin-top: 50px;">
+                    <div style="margin-top: 50px; clear: left;">
+                        fee
+                    </div>
+                    
                 </div>
             </div>
             <el-divider></el-divider>

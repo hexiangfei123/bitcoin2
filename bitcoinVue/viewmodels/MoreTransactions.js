@@ -9,9 +9,11 @@ var app = new Vue({
                 console.log(res);
                 this.unconfirmedTransactions=res.data;
             })
-           }
+        },
+        
     },
     mounted(){
       this.getunconfirmedTransactions();
+      
     }
 })

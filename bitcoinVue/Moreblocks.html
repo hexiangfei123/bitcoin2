@@ -25,14 +25,14 @@
                 layout="total, sizes, prev, pager, next, jumper"
                 :total="total">
               </el-pagination>
-            <el-table :data="blocklist" style="width: 80%">
+            <el-table :data="blocklist" style="width: 100%; margin-left: 40px;">
                 <el-table-column prop="height" label="高度" width="180">
                     <template slot-scope="scope">
                         <a
                             :href="'http://localhost:5000/BlockDetail?blockhash='+ scope.row.blockhash">{{scope.row.height}}</a>
                     </template>
                 </el-table-column>
-                <el-table-column prop="blockhash" label="哈希值" width="500">
+                <el-table-column prop="blockhash" label="哈希值" width="650">
                     <template slot-scope="scope">
                         <a
                             :href="'http://localhost:5000/BlockDetail?blockhash='+ scope.row.blockhash">{{scope.row.blockhash}}</a>

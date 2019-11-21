@@ -78,13 +78,36 @@ var app = new Vue({
             console.log(res);
             this.unconfirmedTransactions=res.data;
         })
-       }
+       },
+       bitcoinPushConnect() {
+        console.log('bitcoin push connecting');
+
+        this.socket = new SockJS('http://localhost:8080/bitcoin');
+        this.stompclient = Stomp.over(this.socket);
+        this.stompclient.connect({}, frame => {
+            app.unconfirmedTransactions=frame;
+            console.log(frame);
+            this.stompclient.subscribe('/bitcoin/deltaTx', function (data) {
+                console.log("*********");
+                console.log(data);
+               
+                console.log("*********");
+
+            });
+        });
+
+    },
+    handleConnect() {
+        console.log('connect click');
+        this.bitcoinPushConnect();
+    }
     },
     mounted(){
         this.updateType();
        this.getblocklist();
-       this.getunconfirmedTransactions();
-       
+      // this.getunconfirmedTransactions();
+
+
 
     }
 })

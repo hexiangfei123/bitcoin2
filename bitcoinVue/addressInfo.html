@@ -11,29 +11,34 @@
 </head>
 
 <body>
-<div id="app">
-    <div>
-      <div style="float: left;margin-left: 40px; width: 1000px;">
-         <div style="float: left;width: 300px;">
-           二维码
-         </div>
-         <div style="float: right;">
-                <table  cellspacing="0px"  style="border-collapse:collapse;line-height: 50px;" >
+    <div id="app">
+        <div style="margin: 0 auto;width: 1250px;">
+               
+         <img src="http://localhost:8080/image/fpng.png" width="1250" height="90px" />
+                    
+        </div>
+        <div>
+            <div style="float: left;margin-left: 40px; width: 1000px;">
+                <div style="float: left;width: 300px;">
+                    二维码
+                </div>
+                <div style="float: right;" >
+                    <table cellspacing="0px" style="border-collapse:collapse;line-height: 50px;">
                         <tr style=" border-bottom:1px solid #979191 ">
                             <td>Address</td>
                             <td>{{addressDTO.address}}</td>
-    
+
                         </tr>
-    
+
                         <tr style="border-bottom:1px solid #979191  ">
                             <td>Format</td>
                             <td>{{addressDTO.format}}</td>
-    
+
                         </tr>
                         <tr style="border-bottom:1px solid #979191  ">
                             <td>Transactions</td>
                             <td>{{addressDTO.txSize}}</td>
-    
+
                         </tr>
                         <tr style="border-bottom:1px solid #979191  ">
                             <td>Total Received</td>
@@ -46,91 +51,108 @@
                         <tr style="border-bottom:1px solid #979191  ">
                             <td>Final Balance</td>
                             <td>{{addressDTO.balance}}</td>
-                        </tr>                                    
+                        </tr>
                     </table>
-         </div>
-         <div style="  clear: right;margin-left: 40px;">Transactions</div>
-         <el-pagination style="text-align:center" @size-change="handleSizeChange" @current-change="handleCurrentChange"
-         :current-page="page" :page-sizes="[10, 15, 20, 25]" :page-size="pagesize"
-         layout="total, sizes, prev, pager, next, jumper" :total="total">
-     </el-pagination>
-
-     <el-row v-for="(o,index) in addressDTO.transactionDTO.list" :key="index">
-            <div >
-                <div>
-                    <div style="float: left ;">hash</div>
-                    <div style="float: left ;margin-left: 40px; width: 450px; " class="blockhash" >
-                        <a :href="'http://localhost:5000/TransactionDetail?txhash='+ o.txhash">{{o.txhash}}</a>
-
-
-
-                    </div>
-
-                    <div style="float: right ;">{{o.time}}</div>
-
-
-
                 </div>
-                <div  style="margin-top: 10px;clear: right;">
+                <div style="  clear: right;margin-bottom: 30px;">Transactions</div>
+                <div style="margin-bottom: 30px;">
+                    <el-pagination style="text-align:center" @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange" :current-page="page" :page-sizes="[10, 15, 20, 25]"
+                        :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="total">
+                </div>
+                </el-pagination>
+
+                <el-row v-for="(o,index) in addressDTO.transactionDTO.list" :key="index">
+                    <div>
+                        <div>
+                            <div style="float: left ;">hash</div>
+                            <div style="float: left ;margin-left: 40px; width: 450px; " class="blockhash">
+                                <a :href="'http://localhost:5000/TransactionDetail?txhash='+ o.txhash">{{o.txhash}}</a>
 
 
-                    <div style="float: left; width: 500px;">
-                        <el-row v-for="(detail,index) in o.records" v-if="detail.type==0" :key="index+100">
-                            <div style="margin-left: 80px; margin-top: 10px;">
-                                <div style="float: left; width: 200px;" class="blockhash"> 
-                                    <a
-                                        :href="'http://localhost:5000/addressInfo?address='+ detail.address">{{detail.address}}</a>
-                                </div>
-                                <div style="float: right;" v-if="detail.type==0">{{detail.amount}}</div>
 
                             </div>
-                        </el-row>
-                    </div>
-                    <div style="float: right;">
-                        <el-row v-for="(detail,index) in o.records " v-if="detail.type==1" :key="index+100">
-                            <div style="margin-top: 10px;">
-                                <div style="float: left;margin-right: 20px; width: 250px;"  class="blockhash" v-if="detail.type==1"> <a
-                                        :href="'http://localhost:5000/addressInfo?address='+ detail.address">{{detail.address}}</a>
-                                </div>
-                                <div style="float: right;" v-if="detail.type==1">{{detail.amount}}</div>
+
+                            <div style="float: right ;">{{o.time}}</div>
+
+
+
+                        </div>
+                        <div style="margin-top: 10px;clear: right;">
+
+
+                            <div style="float: left; width: 500px;">
+                                <el-row v-for="(detail,index) in o.records" v-if="detail.type==0" :key="index+100">
+                                    <div style="margin-left: 80px; margin-top: 10px; ">
+                                        <div style="float: left; width: 200px;" class="blockhash">
+                                            <a
+                                                :href="'http://localhost:5000/addressInfo?address='+ detail.address">{{detail.address}}</a>
+                                        </div>
+                                        <div style="float: right;" v-if="detail.type==0">{{detail.amount}}</div>
+
+                                    </div>
+                                </el-row>
                             </div>
-                        </el-row>
+                            <div  style="float: left;margin-left: 40px;">
+                                <img src="http://localhost:8080/image/c.png" width="40" height="40px" />
+                            </div>
+                            <div style="float: right;">
+                                <el-row v-for="(detail,index) in o.records " v-if="detail.type==1" :key="index+100">
+                                    <div style="margin-top: 10px;">
+                                        <div style="float: left;margin-right: 20px; width: 250px;" class="blockhash"
+                                            v-if="detail.type==1"> <a
+                                                :href="'http://localhost:5000/addressInfo?address='+ detail.address">{{detail.address}}</a>
+                                        </div>
+                                        <div style="float: right;" v-if="detail.type==1">{{detail.amount}}</div>
+                                    </div>
+                                </el-row>
+                            </div>
+                        </div>
+                        <div style="clear: right;clear: left;">
+                            fee
+                        </div>
                     </div>
-                </div>
-                <div style="clear: right;">
-                    fee
-                </div>
+                    <el-divider></el-divider>
+
+
+                </el-row>
+
+
+
+
+
+
+
+
             </div>
-            <el-divider></el-divider>
+            <div style="float: left;margin-left: 30px;">
+                
+                    <div>
+                        <img src="http://localhost:8080/image/b.png" width="200" height="300" />
+    
+                    </div>
+                    <div>
+                        <img src="http://localhost:8080/image/e.png" width="200" height="400" />
+    
+                    </div>
+    
+    
+    
+
+            </div>
 
 
-        </el-row>
+        </div>
 
-
-
-
-
-
-
-
-      </div>
-      <div  style="float: right;">
-
-
-      </div>
 
 
     </div>
 
-
-
-</div>
-
-<script src="assets/js/axios.min.js"></script>
-<script src="assets/js/common.js"></script>
-<script src="assets/js/vue.js"></script>
-<script src="assets/js/elementui.js"></script>
-<script src="viewmodels/addressInfo.js"></script>
+    <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/elementui.js"></script>
+    <script src="viewmodels/addressInfo.js"></script>
 
 </body>
 
