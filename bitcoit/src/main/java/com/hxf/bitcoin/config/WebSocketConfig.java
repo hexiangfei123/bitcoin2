@@ -14,12 +14,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/a");
-        config.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/bitcoin");
+        config.setApplicationDestinationPrefixes("/bitcoinexplorerapp");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/websocket").setAllowedOrigins("*").withSockJS();
+        registry.addEndpoint("/bitcoin").setAllowedOrigins("*").withSockJS();
     }
 }

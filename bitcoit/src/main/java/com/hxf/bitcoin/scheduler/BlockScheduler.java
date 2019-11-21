@@ -11,6 +11,9 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 @Component
 public class BlockScheduler {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -23,30 +26,76 @@ private BlockService blockService;
     private BitcoinRest bitcoinRest;
 @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
-    @Scheduled(fixedRate = 3000)
-    public void syncBlockData(){
-        count++;
-        logger.info("sync block data"+count);
-        Stu stu = new Stu();
-        stu.setAge(11);
-        stu.setName("张三");
-        stu.setSex("男");
+//    @Scheduled(fixedRate = 3000)
+//    public void syncBlockData(){
+//        count++;
+//        logger.info("sync block data"+count);
+//
+//      Block b=  blockService.getnewHash();
+//        String blockhash = b.getBlockhash();
+//        JSONObject blockNoTxDetails = bitcoinRest.getBlockNoTxDetails(blockhash);
+//        String nextblockhash = blockNoTxDetails.getString("nextblockhash");
+//        if(nextblockhash!=null){
+//            blockService.syncBlocks(nextblockhash);
+//
+//        }
+//
+//
+//
+//        simpMessagingTemplate.convertAndSend("/a/c",1);
+//
+//
+//
+//    }
+    private JSONObject originMempoolTx = new JSONObject();
 
+    private List<JSONObject> deltaTxes = new LinkedList<>();
 
-      Block b=  blockService.getnewHash();
-        String blockhash = b.getBlockhash();
-        JSONObject blockNoTxDetails = bitcoinRest.getBlockNoTxDetails(blockhash);
-        String nextblockhash = blockNoTxDetails.getString("nextblockhash");
-        if(nextblockhash!=null){
-            blockService.syncBlocks(nextblockhash);
+    @Scheduled(cron = "${bitcoin.syncMempoolTx.interval}")
+    public void syncMempoolTx(){
+        logger.info("start");
 
+        JSONObject mempoolContents = bitcoinRest.getMempoolContents();
+        int memsize = mempoolContents.size();
+        int origsize = originMempoolTx.size();
+        if(memsize<=origsize){
+             return ;
         }
 
 
 
-        simpMessagingTemplate.convertAndSend("/a/c", stu);
+        for (Map.Entry<String, Object> entry:mempoolContents.entrySet()) {
+            String key = entry.getKey();
+            if (!originMempoolTx.containsKey(key)){
+                JSONObject addJson = mempoolContents.getJSONObject(key);
+                addJson.put("txid", key);
+                deltaTxes.add(addJson);
+            }
 
+        }
 
+        logger.info("delta tx: "+deltaTxes);
+        logger.info("or  size: "+originMempoolTx.size());
+        logger.info("delta size: "+deltaTxes.size());
+        List<JSONObject> detailTxjson = deltaTxes.stream().map(d -> {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("txid", d.getString("txid"));
+            jsonObject.put("wtxid", d.getString("wtxid"));
+            jsonObject.put("time", d.getLong("time"));
+            return jsonObject;
+        }).collect(Collectors.toList());
+
+        List<JSONObject> detaSort = detailTxjson.stream().sorted(Comparator.comparingLong(t -> t.getLong("time"))).collect(Collectors.toList());
+        System.out.println("//////");
+
+        System.out.println(detaSort);
+        System.out.println("//////");
+
+        simpMessagingTemplate.convertAndSend("/bitcoin/deltaTx", detaSort);
+        deltaTxes = new LinkedList<>();
+        originMempoolTx = mempoolContents;
+
+        logger.info("end");
 
     }
 }
